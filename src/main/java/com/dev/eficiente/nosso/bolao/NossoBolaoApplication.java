@@ -1,4 +1,4 @@
-package com.dev.eficiente.nosso.bolao.client;
+package com.dev.eficiente.nosso.bolao;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
