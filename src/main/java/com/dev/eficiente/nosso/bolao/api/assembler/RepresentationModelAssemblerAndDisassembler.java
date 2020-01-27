@@ -18,8 +18,12 @@ public class RepresentationModelAssemblerAndDisassembler {
 		this.modelMapper = modelMapper;
 	}
 
-	public <T> T toRepresentationModel(Class<T> clazz, Object object) {
-		return modelMapper.map(object, clazz);
+	public <T> T toRepresentationModel(Class<T> modelClass, Object domainObject) {
+		return mapObjectToNewClass(domainObject, modelClass);
+	}
+	
+	public <T> T toDomainObject(Class<T> domainObjectClass, Object model) {
+		return mapObjectToNewClass(model, domainObjectClass);
 	}
 	
 	public <T, E> List<T> toCollectionRepresentationModel(Class<T> clazz, Collection<E> objects) {
@@ -30,5 +34,9 @@ public class RepresentationModelAssemblerAndDisassembler {
 	
 	public <T, E> void copyProperties(T source, E target) {
 		modelMapper.map(source, target);
+	}
+	
+	private <T> T mapObjectToNewClass(Object domainObject, Class<T> modelClass) {
+		return modelMapper.map(domainObject, modelClass);
 	}
 }

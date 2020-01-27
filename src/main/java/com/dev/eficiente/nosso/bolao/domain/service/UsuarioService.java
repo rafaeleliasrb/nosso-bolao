@@ -5,6 +5,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dev.eficiente.nosso.bolao.domain.exception.NegocioException;
 import com.dev.eficiente.nosso.bolao.domain.model.Usuario;
 import com.dev.eficiente.nosso.bolao.domain.repository.UsuarioRepository;
 import com.dev.eficiente.nosso.bolao.infrastructure.security.CriptografiaUtil;
@@ -23,7 +24,11 @@ public class UsuarioService {
 
 	@Transactional
 	public Usuario salvar(Usuario usuario) {
-		usuario.setPassword(criptografiaUtil.criptografar(usuario.getPassword()));
+		if(usuarioRepository.findByLogin(usuario.getLogin()).isPresent()) {
+			throw new NegocioException("Esse login já está em uso por outro usuário");
+		}
+		
+		usuario.setSenha(criptografiaUtil.criptografar(usuario.getSenha()));
 		
 		return usuarioRepository.save(usuario);
 	}

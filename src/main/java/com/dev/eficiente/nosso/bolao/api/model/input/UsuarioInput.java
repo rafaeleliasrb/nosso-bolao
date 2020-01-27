@@ -3,6 +3,8 @@ package com.dev.eficiente.nosso.bolao.api.model.input;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.validator.constraints.Length;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,9 +13,10 @@ import lombok.Setter;
 public class UsuarioInput {
 
 	@NotBlank
+	@Email
 	private String login;
 	
 	@NotBlank
-	@Email
-	private String password;
+	@Length(min = 6, max = 255)
+	private String senha;
 }
