@@ -10,18 +10,17 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.dev.eficiente.nosso.bolao.infrastructure.security.CriptografiaUtil;
+
 import lombok.AccessLevel;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Getter
 public class Usuario {
 
 	@Id
-	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
@@ -35,4 +34,18 @@ public class Usuario {
 	@CreationTimestamp
 	@Column(nullable = false)
 	private OffsetDateTime dataCriacao;
+	
+	private Usuario(String login, String senhaSemHash) {
+		this.login = login;
+		this.senha = CriptografiaUtil.criptografar(senhaSemHash);
+	}
+	
+	public static Usuario criaUsuarioComLoginESenhaSemHash(String login, String senhaSemHash) {
+		return new Usuario(login, senhaSemHash);
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [login=" + login + ", senha=" + senha + "]";
+	}
 }

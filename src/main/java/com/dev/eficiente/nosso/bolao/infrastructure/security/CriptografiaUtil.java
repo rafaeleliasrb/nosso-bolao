@@ -5,13 +5,10 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.xml.bind.DatatypeConverter;
 
-import org.springframework.stereotype.Component;
-
 //TODO substituir por BCrypt qunado adicionar spring-security
-@Component
 public class CriptografiaUtil {
 
-	public String criptografar(String password) {
+	public static String criptografar(String password) {
 		MessageDigest md;
 		try {
 			md = MessageDigest.getInstance("MD5");
