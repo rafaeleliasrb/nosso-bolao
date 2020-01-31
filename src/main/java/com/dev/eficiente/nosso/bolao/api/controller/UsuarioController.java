@@ -3,12 +3,15 @@ package com.dev.eficiente.nosso.bolao.api.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dev.eficiente.nosso.bolao.api.model.input.UsuarioInput;
+import com.dev.eficiente.nosso.bolao.api.validator.LoginUnicoValidator;
 import com.dev.eficiente.nosso.bolao.domain.model.Usuario;
 import com.dev.eficiente.nosso.bolao.domain.repository.UsuarioRepository;
 
@@ -22,6 +25,11 @@ public class UsuarioController {
 	public UsuarioController(UsuarioRepository usuarioRepository) {
 		this.usuarioRepository = usuarioRepository;
 	}
+	
+	@InitBinder("usuarioInput")
+    private void initBinder(WebDataBinder binder) {
+        binder.addValidators(new LoginUnicoValidator(usuarioRepository));
+    } 
 	
 	@PostMapping
 	public void adicionar(@RequestBody @Valid UsuarioInput usuarioInput) {

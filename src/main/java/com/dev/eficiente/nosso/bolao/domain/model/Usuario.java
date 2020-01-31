@@ -35,6 +35,9 @@ public class Usuario {
 	@Column(nullable = false)
 	private OffsetDateTime dataCriacao;
 	
+	@Deprecated
+	public Usuario() {}
+	
 	private Usuario(String login, String senhaSemHash) {
 		this.login = login;
 		this.senha = CriptografiaUtil.criptografar(senhaSemHash);
