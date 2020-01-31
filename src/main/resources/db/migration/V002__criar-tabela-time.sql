@@ -1,8 +1,8 @@
-create table (
+create table time (
 
 	id bigint not null auto_increment,
 	nome varchar(255) not null,
-	data_fundacao datetime not null;
+	data_fundacao datetime not null,
 	
 	primary key (id),
 	unique key (nome)

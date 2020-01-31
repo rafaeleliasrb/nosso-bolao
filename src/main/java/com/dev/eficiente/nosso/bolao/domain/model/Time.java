@@ -23,4 +23,12 @@ public class Time {
 	
 	@Column(nullable = false)
 	private OffsetDateTime dataFundacao;
+	
+	@Deprecated
+	public Time() {}
+
+	public Time(String nome, OffsetDateTime dataFundacao) {
+		this.nome = nome;
+		this.dataFundacao = dataFundacao;
+	}
 }
