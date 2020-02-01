@@ -1,10 +1,10 @@
 package com.dev.eficiente.nosso.bolao.domain.exception;
 
-public class NegocioException extends RuntimeException {
+public class AssociacaoNaoEncontradaException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
-	public NegocioException(String message) {
+	public AssociacaoNaoEncontradaException(String message) {
 		super(message);
 	}
 }
