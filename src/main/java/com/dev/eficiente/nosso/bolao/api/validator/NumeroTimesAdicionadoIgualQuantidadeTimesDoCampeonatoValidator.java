@@ -15,9 +15,7 @@ public class NumeroTimesAdicionadoIgualQuantidadeTimesDoCampeonatoValidator impl
 	@Override
 	public void validate(Object target, Errors errors) {
 		CampeonatoInput campeonatoInput = (CampeonatoInput) target;
-		boolean isNumeroTimesAdicionadoEhIgualAQuantidadeTimesDoCampeonato = campeonatoInput.getTimes().isPresent() && 
-				campeonatoInput.getTimes().get().size() != campeonatoInput.getQuantidadeTimes();
-		if(isNumeroTimesAdicionadoEhIgualAQuantidadeTimesDoCampeonato) {
+		if(campeonatoInput.numeroDeTimesAdicionadosDiferenteDaQuantidadeTimes()) {
 			errors.rejectValue("quantidadeTimes", "", 
 					"O número de times do campeoanto deve ser igual a: " + campeonatoInput.getQuantidadeTimes());
 		}
