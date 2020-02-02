@@ -1,12 +1,18 @@
 package com.dev.eficiente.nosso.bolao.domain.model;
 
 import java.time.OffsetDateTime;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import lombok.Getter;
 
@@ -27,6 +33,12 @@ public class Campeonato {
 	@Column(nullable = false)
 	private Integer quantidadeTimes;
 	
+	@ManyToMany
+	@JoinTable(name = "time_campeonato",
+			joinColumns = @JoinColumn(name = "campeonato_id"),
+			inverseJoinColumns = @JoinColumn(name = "time_id"))
+	private Set<Time> times = new HashSet<>();
+	
 	@Deprecated
 	public Campeonato() {}
 
@@ -34,5 +46,13 @@ public class Campeonato {
 		this.nome = nome;
 		this.dataInicio = dataInicio;
 		this.quantidadeTimes = quantidadeTimes;
+	}
+	
+	public Set<Time> getTimes() {
+		return Collections.unmodifiableSet(times);
+	}
+	
+	public void adicionaTime(Time novoTime) {
+		times.add(novoTime);
 	}
 }
